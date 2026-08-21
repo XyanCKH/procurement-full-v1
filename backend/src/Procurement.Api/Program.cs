@@ -17,6 +17,7 @@ builder.Services.AddDbContext<ProcurementDbContext>(options =>
     options.UseInMemoryDatabase("ProcurementDb"));
 
 builder.Services.AddScoped<IEmployeeDirectoryService, EmployeeDirectoryService>();
+builder.Services.AddScoped<ISupplierMasterService, SupplierMasterService>();
 
 builder.Services.AddCors(options =>
 {
