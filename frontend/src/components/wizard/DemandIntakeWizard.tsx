@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import WizardStepper from './WizardStepper';
 import RequestOverviewSidebar from './RequestOverviewSidebar';
 import Step1RequestType from './steps/Step1RequestType';
+import Step2RequestDetails from './steps/Step2RequestDetails';
 import { ProcurementFormData } from '../../types/procurementForm';
 import { ArrowLeft, Save, ShieldCheck } from 'lucide-react';
 
@@ -77,15 +78,23 @@ export default function DemandIntakeWizard() {
               onNext={() => setCurrentStep(2)}
             />
           )}
-          {currentStep > 1 && (
+          {currentStep === 2 && (
+            <Step2RequestDetails
+              formData={formData}
+              onChange={handleFormChange}
+              onNext={() => setCurrentStep(3)}
+              onBack={() => setCurrentStep(1)}
+            />
+          )}
+          {currentStep > 2 && (
             <div className="max-w-4xl mx-auto py-16 text-center space-y-4">
               <h2 className="text-2xl font-bold text-gray-800">Step {currentStep} under construction</h2>
-              <p className="text-sm text-gray-600">You are viewing step {currentStep}. Step 1 Request Type is fully implemented.</p>
+              <p className="text-sm text-gray-600">You are viewing step {currentStep}. Step 1 and Step 2 are fully implemented.</p>
               <button
-                onClick={() => setCurrentStep(1)}
+                onClick={() => setCurrentStep(2)}
                 className="px-5 py-2.5 bg-[#1E40AF] text-white rounded-xl text-sm font-medium"
               >
-                Return to Step 1
+                Return to Step 2
               </button>
             </div>
           )}
