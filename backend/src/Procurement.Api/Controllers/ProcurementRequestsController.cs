@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Procurement.Core.DTOs;
 using Procurement.Core.Entities;
 using Procurement.Core.Enums;
+using Procurement.Core.Services;
+using Procurement.Core.Validators;
 using Procurement.Infrastructure.Data;
 
 namespace Procurement.Api.Controllers
@@ -12,19 +14,18 @@ namespace Procurement.Api.Controllers
     public class ProcurementRequestsController : ControllerBase
     {
         private readonly ProcurementDbContext _context;
+        private readonly IRequestIdGenerator _idGenerator;
 
-        public ProcurementRequestsController(ProcurementDbContext context)
+        public ProcurementRequestsController(ProcurementDbContext context, IRequestIdGenerator idGenerator)
         {
             _context = context;
+            _idGenerator = idGenerator;
         }
 
         [HttpPost]
         public async Task<ActionResult<ProcurementRequestResponseDto>> CreateDraft([FromBody] CreateDraftRequestDto dto)
         {
-            var year = DateTime.UtcNow.Year;
-            // Generate ID e.g. PR-2025-00001
-            var count = await _context.ProcurementRequests.CountAsync(r => r.Id.StartsWith($"PR-{year}-")) + 1;
-            var id = $"PR-{year}-{count:D5}";
+            var id = await _idGenerator.GenerateIdAsync();
 
             var request = new ProcurementRequest
             {
@@ -66,6 +67,46 @@ namespace Procurement.Api.Controllers
 
             var responseDto = ProcurementRequestResponseDto.FromEntity(request);
             return CreatedAtAction(nameof(GetById), new { id = request.Id }, responseDto);
+        }
+
+        [HttpPost("{id}/submit")]
+        public async Task<IActionResult> SubmitRequest(string id)
+        {
+            var request = await _context.ProcurementRequests.FindAsync(id);
+            if (request == null)
+            {
+                return NotFound(new { message = $"Procurement request {id} not found." });
+            }
+
+            var documents = await _context.RequestDocuments
+                .Where(d => d.RequestId == id)
+                .ToListAsync();
+
+            var validationResult = FinalSubmissionValidator.Validate(request, documents);
+            if (!validationResult.IsValid)
+            {
+                return UnprocessableEntity(new
+                {
+                    message = "Validation failed for request submission.",
+                    errors = validationResult.Errors
+                });
+            }
+
+            request.Status = WorkflowStatus.SUBMITTED;
+            request.PendingActionBy = "PROCUREMENT_TRIAGE_TEAM";
+            request.UpdatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            // Dispatch domain event or log audit history as required
+            return Ok(new
+            {
+                id = request.Id,
+                status = request.Status.ToString(),
+                pendingActionBy = request.PendingActionBy,
+                updatedAt = request.UpdatedAt,
+                message = "Request submitted successfully."
+            });
         }
 
         [HttpGet("{id}")]

@@ -18,6 +18,7 @@ builder.Services.AddDbContext<ProcurementDbContext>(options =>
 
 builder.Services.AddScoped<IEmployeeDirectoryService, EmployeeDirectoryService>();
 builder.Services.AddScoped<ISupplierMasterService, SupplierMasterService>();
+builder.Services.AddScoped<IRequestIdGenerator, SequentialRequestIdGenerator>();
 
 builder.Services.AddCors(options =>
 {
