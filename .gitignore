@@ -1,0 +1,21 @@
+# Node / Frontend
+node_modules/
+dist/
+build/
+.next/
+coverage/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# General / Rust / Go
+target/
+bin/
+*.log
+.DS_Store
+.env
+.env.local
