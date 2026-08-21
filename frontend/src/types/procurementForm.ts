@@ -6,6 +6,14 @@ export type ProcurementCategory =
 
 export type RequestType = 'NEW' | 'RENEWAL';
 
+export interface Employee {
+  id: string;
+  name: string;
+  department: string;
+  contact: string;
+  email: string;
+}
+
 export interface ProcurementFormData {
   category: ProcurementCategory;
   queryDetails: string;
@@ -16,10 +24,20 @@ export interface ProcurementFormData {
   budgetAmount: number | null;
   isBudgetTbd: boolean;
   targetEndDate: string;
+  requesterId: string;
+  requesterName: string;
+  requesterDept: string;
+  requesterContact: string;
   isOnBehalf: boolean;
   onBehalfUserId: string;
+  onBehalfUserName: string;
+  onBehalfUserDept: string;
+  onBehalfUserContact: string;
   isItRelated: boolean;
   itUserId: string;
+  itUserName: string;
+  itUserDept: string;
+  itUserContact: string;
   isVendorRegistered: boolean;
   vendorName: string;
   vendorRegNo: string;

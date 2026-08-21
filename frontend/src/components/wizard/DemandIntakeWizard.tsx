@@ -3,6 +3,7 @@ import WizardStepper from './WizardStepper';
 import RequestOverviewSidebar from './RequestOverviewSidebar';
 import Step1RequestType from './steps/Step1RequestType';
 import Step2RequestDetails from './steps/Step2RequestDetails';
+import Step3UserInfo from './steps/Step3UserInfo';
 import { ProcurementFormData } from '../../types/procurementForm';
 import { ArrowLeft, Save, ShieldCheck } from 'lucide-react';
 
@@ -18,10 +19,20 @@ export default function DemandIntakeWizard() {
     budgetAmount: null,
     isBudgetTbd: false,
     targetEndDate: '',
+    requesterId: '',
+    requesterName: '',
+    requesterDept: '',
+    requesterContact: '',
     isOnBehalf: false,
     onBehalfUserId: '',
+    onBehalfUserName: '',
+    onBehalfUserDept: '',
+    onBehalfUserContact: '',
     isItRelated: false,
     itUserId: '',
+    itUserName: '',
+    itUserDept: '',
+    itUserContact: '',
     isVendorRegistered: true,
     vendorName: '',
     vendorRegNo: '',
@@ -86,15 +97,23 @@ export default function DemandIntakeWizard() {
               onBack={() => setCurrentStep(1)}
             />
           )}
-          {currentStep > 2 && (
+          {currentStep === 3 && (
+            <Step3UserInfo
+              formData={formData}
+              onChange={handleFormChange}
+              onNext={() => setCurrentStep(4)}
+              onBack={() => setCurrentStep(2)}
+            />
+          )}
+          {currentStep > 3 && (
             <div className="max-w-4xl mx-auto py-16 text-center space-y-4">
               <h2 className="text-2xl font-bold text-gray-800">Step {currentStep} under construction</h2>
-              <p className="text-sm text-gray-600">You are viewing step {currentStep}. Step 1 and Step 2 are fully implemented.</p>
+              <p className="text-sm text-gray-600">You are viewing step {currentStep}. Step 1 to Step 3 are fully implemented.</p>
               <button
-                onClick={() => setCurrentStep(2)}
+                onClick={() => setCurrentStep(3)}
                 className="px-5 py-2.5 bg-[#1E40AF] text-white rounded-xl text-sm font-medium"
               >
-                Return to Step 2
+                Return to Step 3
               </button>
             </div>
           )}

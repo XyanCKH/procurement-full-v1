@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Procurement.Infrastructure.Data;
+using Procurement.Core.Services;
+using Procurement.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ProcurementDbContext>(options =>
     options.UseInMemoryDatabase("ProcurementDb"));
+
+builder.Services.AddScoped<IEmployeeDirectoryService, EmployeeDirectoryService>();
 
 builder.Services.AddCors(options =>
 {
