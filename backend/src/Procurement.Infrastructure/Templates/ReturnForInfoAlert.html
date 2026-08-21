@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Returned For Information - {{RequestId}}</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f6f9; }
+        .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .header { background: #f0ad4e; color: #ffffff; padding: 20px; text-align: center; }
+        .content { padding: 30px; }
+        .details-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .details-table th, .details-table td { padding: 12px; border-bottom: 1px solid #e1e4e8; text-align: left; font-size: 14px; }
+        .details-table th { width: 35%; color: #555; background: #f8fafc; }
+        .comments-box { background: #fffdf0; border-left: 4px solid #f0ad4e; padding: 15px; margin: 20px 0; font-style: italic; }
+        .btn { display: inline-block; padding: 12px 24px; background: #f0ad4e; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; }
+        .footer { background: #f8fafc; color: #777; padding: 15px; text-align: center; font-size: 12px; border-top: 1px solid #e1e4e8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Procurement Request Returned For Information</h2>
+        </div>
+        <div class="content">
+            <p>Dear <strong>{{RequesterName}}</strong>,</p>
+            <p>Your procurement request <strong>{{RequestId}}</strong> has been reviewed and requires additional information before processing can continue.</p>
+            
+            <div class="comments-box">
+                <strong>Reviewer Comments / Required Action:</strong><br/>
+                {{ReviewerComments}}
+            </div>
+
+            <table class="details-table">
+                <tr>
+                    <th>Request ID</th>
+                    <td><strong>{{RequestId}}</strong></td>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <td>{{Category}}</td>
+                </tr>
+                <tr>
+                    <th>Submission Timestamp</th>
+                    <td>{{SubmissionTimestamp}}</td>
+                </tr>
+            </table>
+
+            <p>Please update and resubmit your request in the portal:</p>
+            <a href="{{PortalLink}}" class="btn">Update Request in Portal</a>
+        </div>
+        <div class="footer">
+            <p>&copy; {{CurrentYear}} Enterprise Procurement System. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

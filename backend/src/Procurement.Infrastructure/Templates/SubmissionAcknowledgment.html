@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Procurement Request Acknowledgment - {{RequestId}}</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f6f9; }
+        .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .header { background: #004080; color: #ffffff; padding: 20px; text-align: center; }
+        .content { padding: 30px; }
+        .details-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .details-table th, .details-table td { padding: 12px; border-bottom: 1px solid #e1e4e8; text-align: left; font-size: 14px; }
+        .details-table th { width: 35%; color: #555; background: #f8fafc; }
+        .btn { display: inline-block; padding: 12px 24px; background: #004080; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; }
+        .footer { background: #f8fafc; color: #777; padding: 15px; text-align: center; font-size: 12px; border-top: 1px solid #e1e4e8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Procurement Request Acknowledged</h2>
+        </div>
+        <div class="content">
+            <p>Dear <strong>{{RequesterName}}</strong>,</p>
+            <p>Your procurement request has been successfully submitted and logged into the Enterprise Procurement System.</p>
+            
+            <table class="details-table">
+                <tr>
+                    <th>Request ID</th>
+                    <td><strong>{{RequestId}}</strong></td>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <td>{{Category}}</td>
+                </tr>
+                <tr>
+                    <th>Requester Name</th>
+                    <td>{{RequesterName}}</td>
+                </tr>
+                <tr>
+                    <th>Description Summary</th>
+                    <td>{{DescriptionSummary}}</td>
+                </tr>
+                <tr>
+                    <th>Submission Timestamp</th>
+                    <td>{{SubmissionTimestamp}}</td>
+                </tr>
+            </table>
+
+            <p>You can track the progress and status of your request directly in the portal:</p>
+            <a href="{{PortalLink}}" class="btn">View Request in Portal</a>
+        </div>
+        <div class="footer">
+            <p>&copy; {{CurrentYear}} Enterprise Procurement System. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
