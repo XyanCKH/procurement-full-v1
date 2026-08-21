@@ -78,3 +78,25 @@ namespace Procurement.Core.DTOs
         }
     }
 }
+
+namespace Procurement.Core.DTOs
+{
+    public class ProcurementRequestSummaryDto
+    {
+        public string Id { get; set; } = string.Empty;
+        public ProcurementCategory Category { get; set; }
+        public RequestType RequestType { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public decimal? BudgetAmount { get; set; }
+        public bool IsBudgetTbd { get; set; }
+        public DateTime TargetEndDate { get; set; }
+        public string RequesterId { get; set; } = string.Empty;
+        public string RequesterName { get; set; } = string.Empty;
+        public string RequesterDept { get; set; } = string.Empty;
+        public string VendorName { get; set; } = string.Empty;
+        public WorkflowStatus Status { get; set; }
+        public string? PendingActionBy { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+    }
+}

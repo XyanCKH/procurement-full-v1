@@ -8,6 +8,7 @@ namespace Procurement.Infrastructure.Data
     {
         public DbSet<ProcurementRequest> ProcurementRequests => Set<ProcurementRequest>();
         public DbSet<RequestDocument> RequestDocuments => Set<RequestDocument>();
+        public DbSet<AuditLogEntry> AuditLogEntries => Set<AuditLogEntry>();
 
         public ProcurementDbContext(DbContextOptions<ProcurementDbContext> options)
             : base(options)
